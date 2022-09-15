@@ -1,0 +1,239 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Excel匯入-TMCA to MONEY System</title>
+<link rel="stylesheet" th:href="@{/xenon/assets/js/jquery-ui/jquery-ui.min.css}">
+<link rel="stylesheet" th:href="@{/xenon/assets/css/bootstrap.css}">
+<link rel="stylesheet"
+	th:href="@{/xenon/assets/css/fonts/linecons/css/linecons.css}">
+<link rel="stylesheet"
+	th:href="@{/xenon/assets/css/fonts/fontawesome/css/font-awesome.min.css}">
+<link rel="stylesheet" th:href="@{/xenon/assets/css/xenon-core.css}">
+<link rel="stylesheet" th:href="@{/xenon/assets/css/xenon-forms.css}">
+<style>
+#errmessage{ border-top: 2px dotted #ccc; padding-top: 5px; }
+.progress{ border-radius: 5px; height:27px; }
+#progress,#progress2{ padding:5px; }
+</style>
+</head>
+<body class="page-body skin-aero">
+	<div class="page-container">
+		<div
+			class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<h3>Excel匯入-TMCA to MONEY System</h3>
+					</div>
+					<div class="pull-right">
+						<label class="radio-inline  cbr-radio cbr-blue">
+							<input type="radio" name="ontest" value="N"> 正式機
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="ontest" value="Y" checked="checked"> 測試機
+						</label>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="form-group form-group-lg font-size-large form-data">
+						<label for="insert-file">選擇要上傳的檔案</label> 
+						<input type="file" name="insert-file" class="form-control input-lg" id="insert-file" accept=".xlsx" />
+						<p class="help-block text-right">※限.xlsx</p>
+					</div>
+					<div class="form-group text-center col-sm-12">
+						<button type="button" class="btn btn-turquoise btn-import-file">上傳<span id="loading" style="display:none;">Loding...</span></button>
+					</div>
+					<div class="col-sm-12">
+						<!-- 檔案上傳進度 -->
+						<div class="progress" style="display:none;">
+							<div id="progress" class="progress-bar progress-bar-striped" style="width:0%"></div>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<!-- 後端處理進度 -->
+						<div id="runrate" style="display:none;"></div>
+						<div class="progress" style="display:none;">
+							<div id="progress2" class="progress-bar progress-bar-striped" style="width:0%"></div>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div id="resetDownload" class="text-center" style="display:none;"><a href="" class="btn btn-info" style="margin-top:5px;" download>:: 完成後無自動下載完成檔，請按此重新下載 ::</a></div>
+						<div id="errmessage" style="display:none;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="uploadModalLabel">再確認</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body"></div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary btn-y-submit">確定上傳</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</body>
+</html>
+
+<script th:src="@{/xenon/assets/js/jquery-1.11.1.min.js}"></script>
+<script th:src="@{/xenon/assets/js/jquery-ui/jquery-ui.min.js}"></script>
+<script th:src="@{/xenon/assets/js/bootstrap.min.js}"></script>
+<script>
+	let interval;
+	$(function(){
+		$(".btn-import-file").on("click", function(){
+			let file = $('input[name=insert-file]')[0].files[0] // 單個檔案
+			let ontest = $("input[name=ontest]:checked").val();
+			resetDiv();
+			if(!file)
+				alert("未選取檔案");
+			else{
+				$(".modal-body", "#uploadModal").html("確定要將此檔匯入「"+(ontest=="Y"?"測試機":"正式機")+"」嗎？");
+				$('#uploadModal').modal('show');
+			}
+		});
+		
+		$(".btn-y-submit").on("click", function(){
+			$('#uploadModal').modal('hide');
+			let file = $('input[name=insert-file]')[0].files[0] // 單個檔案
+			let ontest = $("input[name=ontest]:checked").val();
+			
+			$('.progress').eq(0).show();
+			// 建立一個新的 FormData 物件
+			let formData = new FormData()
+			formData.append('file', file);
+			formData.append('ontest', ontest);
+			$('#progress').removeClass('progress-bar-danger progress-bar-success').addClass('active progress-bar-info');
+			$.ajax({
+				'url': '/moneytools/upload',
+				'type': 'POST',
+				'contentType': false,// 資料物件不需要轉換成鍵值對格式
+				'processData': false,
+				'data': formData,
+				'dataType': "json",
+				beforeSend: function() {
+					$("button.btn-import-file").attr("disabled",true);
+					$('#loading').show();
+				},complete: function() {
+					$("button.btn-import-file").attr("disabled",false);
+					$('#loading').hide()
+				},xhr: function xhr() {
+					var xhr = new XMLHttpRequest()
+					// 獲取檔案上傳的進度
+					xhr.upload.onprogress = function(e) {
+						// e.lengthComputable表示當前的進度是否是可以計算,返回布林值
+						if (e.lengthComputable) {
+							// e.loaded表示下載了多少資料,e.total表示資料總量
+							var percentComplete = Math.ceil((e.loaded / e.total) * 100)
+							// 讓進度條的寬度變化
+							$('#progress').css('width',percentComplete+"%")
+							// 在進度條中顯示百分比
+							$('#progress').html(percentComplete + '%')
+						}
+					}
+					// 檔案載入完成
+					xhr.upload.onload = function() {
+						begeinProgress();
+						$('#progress').removeClass('progress-bar-info progress-bar-danger').addClass('progress-bar-success').html("上傳完成，檔案處理中...");
+					}
+					return xhr
+				}
+			})
+			.done(function (response) {
+				if(response.code == 200){
+			    	doProgress();
+					$('#progress').removeClass("active").html("處理完成！");
+					// 手動下載
+					let linkObj =$("a", "#resetDownload");
+					linkObj.prop("href", "/moneytools/download?filetime="+response.filetime);
+					// 自動下載
+					var link=document.createElement('a');
+					link.download = true;
+					link.href="/moneytools/download?filetime="+response.filetime ;
+					link.click();
+					$("#resetDownload").show();
+				}else{
+					errFunction(response.message);
+				}
+			})
+			.fail(function (response) {
+				errFunction(response.responseText);
+			})
+		});
+	});
+			
+	// 進度條長度
+    function begeinProgress() {
+    	console.log("begeinProgress...");
+    	$("#runrate").show();
+    	$('#progress2').addClass("active");
+    	setTimeout((()=>{doProgress();}),1000);
+    	
+        interval = setInterval("doProgress()", 1000 * 10);
+    }
+	
+    // 循環進度
+    function doProgress() {
+    	//console.log("doProgress...");
+    	$.ajax({
+			'url': '/moneytools/get_progress',
+			'type': 'POST',
+			'contentType': false,// 資料物件不需要轉換成鍵值對格式
+			'processData': false,
+			'dataType': "json"
+    	})
+		.done(function(e) {
+			// e.loaded表示下載了多少資料,e.total表示資料總量
+			var percentComplete = Math.ceil((e.now_no / e.total) * 100)
+			// 讓進度條的寬度變化
+			$('#progress2').css('width', percentComplete+"%")
+			// 在進度條中顯示百分比
+			$('#progress2').html( percentComplete+"%");
+			$("#runrate").html("處理進度："+e.now_no+" / " + e.total);
+			if(e.total>0)
+		    	$('.progress').eq(1).show();
+			//100%了
+			if(e.now_no == e.total && e.total>0)
+				stopInterval();
+		})
+		.fail(function(e) {
+			errFunction(e.responseText);
+		})
+    }
+    // 清除循環
+    function stopInterval() {
+    	$('#progress2').removeClass("active");
+    	clearInterval(interval);
+    	console.log("已中止interval...");
+    }
+    
+    // 處理發生錯誤時
+    function errFunction(msg){
+		stopInterval();
+    	$('#progress').removeClass('active progress-bar-info progress-bar-success').addClass('progress-bar-danger').html("處理發生錯誤...");
+		$("#errmessage").html(msg).show();
+    }
+    
+    function resetDiv(){
+    	$('.progress').hide();
+    	$('#progress, #progress2').css("width","0%").html("");
+		$("#resetDownload").hide();
+		$("#errmessage,#runrate").html("").hide();
+    	// 手動下載
+		let linkObj =$("a", "#resetDownload");
+		linkObj.prop("href", "");
+    }
+</script>

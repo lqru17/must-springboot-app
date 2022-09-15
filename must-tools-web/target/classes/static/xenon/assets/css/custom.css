@@ -1,0 +1,19 @@
+/**
+ *
+ * Apply your custom CSS here
+ *
+*/
+
+body {	
+	
+}
+
+a {
+}
+
+.h1_t2{
+		text-shadow: 6px 6px 0px rgba(47,174,74,0.5);-webkit-text-stroke: 2px #2fae4a;-webkit-text-fill-color: transparent;
+}
+.h1_t1{
+	text-shadow: 6px 6px 0px rgba(0,0,0,0.2);-webkit-text-stroke: 2px #ff8000;-webkit-text-fill-color: transparent;
+}

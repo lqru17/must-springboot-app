@@ -1,0 +1,92 @@
+{"properties": [
+  {
+    "name": "fds.datasource.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'fds.datasource.jdbc-url'"
+  },
+  {
+    "name": "oreg.datasource.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'oreg.datasource.jdbc-url'"
+  },
+  {
+    "name": "spring.datasource.primary.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.primary.jdbc-url'"
+  },
+  {
+    "name": "spring.datasource.primary.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.primary.username'"
+  },
+  {
+    "name": "spring.datasource.primary.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.primary.password'"
+  },
+  {
+    "name": "spring.datasource.primary.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.primary.driver-class-name'"
+  },
+  {
+    "name": "spring.datasource.primary.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.primary.url'"
+  },
+  {
+    "name": "fds.datasource.username",
+    "type": "java.lang.String",
+    "description": "A description for 'fds.datasource.username'"
+  },
+  {
+    "name": "fds.datasource.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'fds.datasource.driver-class-name'"
+  },
+  {
+    "name": "app.datasource.fds.url",
+    "type": "java.lang.String",
+    "description": "A description for 'app.datasource.fds.url'"
+  },
+  {
+    "name": "app.datasource.fds.username",
+    "type": "java.lang.String",
+    "description": "A description for 'app.datasource.fds.username'"
+  },
+  {
+    "name": "app.datasource.fds.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'app.datasource.fds.driver-class-name'"
+  },
+  {
+    "name": "app.datasource.fds.password",
+    "type": "java.lang.String",
+    "description": "A description for 'app.datasource.fds.password'"
+  },
+  {
+    "name": "app.datasource.oreg.url",
+    "type": "java.lang.String",
+    "description": "A description for 'app.datasource.oreg.url'"
+  },
+  {
+    "name": "app.datasource.oreg.username",
+    "type": "java.lang.String",
+    "description": "A description for 'app.datasource.oreg.username'"
+  },
+  {
+    "name": "app.datasource.oreg.password",
+    "type": "java.lang.String",
+    "description": "A description for 'app.datasource.oreg.password'"
+  },
+  {
+    "name": "app.datasource.oreg.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'app.datasource.oreg.driver-class-name'"
+  },
+  {
+    "name": "app.datasource.fds.jdbc-url",
+    "type": "java.lang.String",
+    "description": "A description for 'app.datasource.fds.jdbc-url'"
+  }
+]}

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.must</groupId>
+	<artifactId>must-springboot-app</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<!-- 項目說明：這裡作為聚合工程的父工程 -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.1.RELEASE</version>
+	</parent>
+
+	<!-- 子工程 -->
+	<modules>
+		<module>must-tools-web</module>
+		<module>m-care</module>
+	</modules>
+
+	<!-- 版本說明：管理依賴的版本號 -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<mybatis-plus.version>3.4.1</mybatis-plus.version>
+		<freemark.version>2.3.30</freemark.version>
+		<alibaba.easyexcel.version>3.1.1</alibaba.easyexcel.version>
+		<alibaba.fastjson.version>1.2.47</alibaba.fastjson.version>
+		<google.guava.version>19.0</google.guava.version>
+		<io.springfox.version>3.0.0</io.springfox.version>
+		<org.apache.shiro.version>1.4.2</org.apache.shiro.version>
+	</properties>
+
+	<!-- 版本說明：管理依賴元件 -->
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<!--             <scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<!-- 		<dependency> -->
+		<!-- 			<groupId>org.mybatis.spring.boot</groupId> -->
+		<!-- 			<artifactId>mybatis-spring-boot-starter</artifactId> -->
+		<!-- 			<version>2.0.0</version> -->
+		<!-- 		</dependency> -->
+		<!-- MyBatis-Plus -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatis-plus.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- why we use security to do authentication and authorization, not shiro or aop? -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${org.apache.shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>${io.springfox.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot </groupId>
+			<artifactId> spring-boot-devtools </artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- 資料庫驅動-->
+		<!-- 		<dependency> -->
+		<!-- 			<groupId>mysql</groupId> -->
+		<!-- 			<artifactId>mysql-connector-java</artifactId> -->
+		<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- 阿里巴巴json工具 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${alibaba.fastjson.version}</version>
+		</dependency>
+		<!-- 發送request工具 -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${google.guava.version}</version>
+		</dependency>
+		<!--JXLS EXCEL工具 -->
+		<!-- 		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls</artifactId>
+			<version>2.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls-poi</artifactId>
+			<version>2.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls-jexcel</artifactId>
+			<version>1.0.9</version>
+		</dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<!-- 		 打包war加的,段落開始 -->
+		<!-- 		<dependency> -->
+		<!-- 			<groupId>org.springframework.boot</groupId> -->
+		<!-- 			<artifactId>spring-boot-starter-tomcat</artifactId> -->
+		<!-- 			<scope>provided</scope> -->
+		<!-- 		</dependency> -->
+		<!-- 			打包war加的，段落結束 -->
+		<!-- Excel 依賴 -->
+		<!-- 		mybatis-plus-generator -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-generator</artifactId>
+			<version>${mybatis-plus.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemark.version}</version>
+			<!-- <scope>test</scope> -->
+		</dependency>
+
+		<!--easy Excel -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+			<version>${alibaba.easyexcel.version}</version>
+		</dependency>
+		<!--引入redis依賴-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<!--引入httpclient依賴-->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+</project>
