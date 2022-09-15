@@ -30,6 +30,8 @@
 			<version>${mybatis-plus.version}</version>
 		</dependency>
 		-->
+		
+		
 		<dependency>
 			<groupId>org.m</groupId>
 			<artifactId>m-care</artifactId>
