@@ -3,12 +3,11 @@ package org.must;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "org.m.server.fds", "org.must" })
-public class mustToolsApplication {
+@ComponentScan( basePackageClasses = {org.m.datasource.fds.FdsConfig.class, org.m.datasource.oreg.OregConfig.class},basePackages = { "org.must" } )
+public class mustExceptionApplication {
 	 private static ApplicationContext applicationContext;
 
 	public static void main(String[] args) {
@@ -19,7 +18,7 @@ public class mustToolsApplication {
 //			System.out.println(beanName);
 //		}
 
-		SpringApplication.run(mustToolsApplication.class, args);
+		SpringApplication.run(mustExceptionApplication.class, args);
 	}
 
 	public static ApplicationContext getApplicationContext() {

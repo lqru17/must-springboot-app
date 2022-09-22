@@ -16,7 +16,8 @@
 	<!-- 子工程 -->
 	<modules>
 		<module>must-tools-web</module>
-		<module>m-care</module>
+		<module>must-care</module>
+		<module>must-excemple</module>
 	</modules>
 
 	<!-- 版本說明：管理依賴的版本號 -->
@@ -152,12 +153,12 @@
 		<!-- 			打包war加的，段落結束 -->
 		<!-- Excel 依賴 -->
 		<!-- 		mybatis-plus-generator -->
-		<dependency>
+		<!--<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-generator</artifactId>
 			<version>${mybatis-plus.version}</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
@@ -190,19 +191,4 @@
 			<artifactId>commons-codec</artifactId>
 		</dependency>
 	</dependencies>
-	
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>**/*.xml</include>
-				</includes>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-	</build>
 </project>

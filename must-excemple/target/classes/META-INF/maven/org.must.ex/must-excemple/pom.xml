@@ -7,8 +7,9 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>must-tools-web</artifactId>
-	<name>must-tools-web</name>
+	<groupId>org.must.ex</groupId>
+	<artifactId>must-excemple</artifactId>
+	<name>must-excemple</name>
 
 	<dependencies>
 		<dependency>
@@ -23,7 +24,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-generator</artifactId>
@@ -36,7 +37,7 @@
 			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<resources>
 			<resource>

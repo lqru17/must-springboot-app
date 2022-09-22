@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.m.server.mapper.fds.dao.S_AdminDao">
+
+	<sql id="Base_Column_List" >
+        id, ad_user, limits
+    </sql>
+    <!-- 主查詢頁，查詢該列管事項之 列管設定 (含分頁) 原rowid 改以 rowids 帶出，取出時記得轉回-->
+    <select id="selectAll" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+    	select * from s_admin
+    </select>
+</mapper>
